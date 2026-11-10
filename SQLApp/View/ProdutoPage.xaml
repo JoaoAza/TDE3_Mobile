@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SQLApp.View.ProdutoPage" Title="Cadastro de Produtos">
+    <Grid Padding="10" RowDefinitions="Auto,*,Auto" RowSpacing="10">
+        <Label Text="Cadastro de Produtos" FontSize="22" FontAttributes="Bold" />
+        <ScrollView Grid.Row="1">
+        <VerticalStackLayout Spacing="10">
+            <Label Text="Código (gerado na inclusão):" />
+            <Entry x:Name="txID" Placeholder="Código para consultar, alterar ou excluir" Keyboard="Numeric" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Text="Consultar" Clicked="btConsultar_Clicked" />
+                <Button Grid.Column="1" Text="Limpar Form" Clicked="btLimpar_Clicked" />
+            </Grid>
+            <Label Text="Nome do produto:" />
+            <Entry x:Name="txNomeProduto" Placeholder="Nome do produto" />
+            <Label Text="Tipo:" />
+            <Entry x:Name="txTipo" Placeholder="Tipo" />
+            <Label Text="Preço (R$):" />
+            <Entry x:Name="txPreco" Placeholder="Preço (R$)" Keyboard="Numeric" />
+            <Label Text="Quantidade em estoque:" />
+            <Entry x:Name="txQtdEstoque" Placeholder="Quantidade em estoque" Keyboard="Numeric" />
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5">
+                <Button Text="Incluir" Clicked="btIncluir_Clicked" Padding="5" />
+                <Button Grid.Column="1" Text="Alterar" Clicked="btAlterar_Clicked" Padding="5" />
+                <Button Grid.Column="2" Text="Excluir" Clicked="btExcluir_Clicked" Padding="5" />
+            </Grid>
+            <SearchBar x:Name="sbBusca" Placeholder="Buscar por nome" SearchButtonPressed="sbBusca_SearchButtonPressed" />
+            <Picker x:Name="pkOrdem" Title="Ordenar por nome" SelectedIndexChanged="pkOrdem_SelectedIndexChanged">
+                <Picker.Items><x:String>A - Z</x:String><x:String>Z - A</x:String></Picker.Items>
+            </Picker>
+            <Label Text="Registros — toque para preencher o formulário" FontAttributes="Bold" />
+            <CollectionView x:Name="lvLista" SelectionMode="Single" HeightRequest="300"
+                            SelectionChanged="lvLista_SelectionChanged" EmptyView="Nenhum registro encontrado.">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Padding="8" Spacing="3">
+                            <Label Text="{Binding CodigoProduto, StringFormat='CodigoProduto: {0}'}" />
+                            <Label Text="{Binding NomeProduto, StringFormat='NomeProduto: {0}'}" />
+                            <Label Text="{Binding Tipo, StringFormat='Tipo: {0}'}" />
+                            <Label Text="{Binding Preco, StringFormat='Preco: R$ {0:N2}'}" />
+                            <Label Text="{Binding QtdEstoque, StringFormat='QtdEstoque: {0}'}" />
+                            <BoxView HeightRequest="1" Color="Gray" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+        </ScrollView>
+        <Button Grid.Row="2" Text="Atualizar lista" Clicked="btAtualizar_Clicked" />
+    </Grid>
+</ContentPage>
